@@ -1,4 +1,5 @@
 import { Unit, Tower } from "./classes";
+import { calculateMinFiringDistance } from "./lib/calculateMinFiringDistance";
 import { IFightLogs } from "./types";
 
 const startGame = (bots: Unit[], tower: Tower): IFightLogs => {
@@ -9,6 +10,8 @@ const startGame = (bots: Unit[], tower: Tower): IFightLogs => {
     deadEnemies: [],
     aliveEnemies: [],
     towerKiller: '',
+    // ? look at the line 57 !
+    towerMinRangeToWin: -1,
     turns,
   }
 
@@ -46,8 +49,13 @@ const startGame = (bots: Unit[], tower: Tower): IFightLogs => {
 
     if (enemyGotTower) {
       tower.destroyed();
-      fightLogs.towerKiller = enemyGotTower.name
-      fightLogs.aliveEnemies.push(...enemies)
+      fightLogs.towerKiller = enemyGotTower.name;
+      fightLogs.aliveEnemies.push(...enemies);
+
+      // ? It only works if the enemies have the same speed, 
+      // ? they appear outside the tower's range, 
+      // ? and their speed doesn't reach the tower within one step.
+      fightLogs.towerMinRangeToWin = calculateMinFiringDistance(bots, tower.rangeAttack);
 
       break;
     }

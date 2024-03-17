@@ -17,9 +17,9 @@ const bots = [
   new Unit('BotA', 100, 10),
   new Unit('BotB', 50, 20),
   new Unit('BotC', 30, 20),
-  // new Unit('BotD', 40, 10),
-  // new Unit('BotE', 40, 10),
-  // new Unit('BotF', 40, 10),
+  // new Unit('BotD', 80, 10),
+  // new Unit('BotE', 80, 10),
+  // new Unit('BotF', 80, 10),
   // new Unit('BotG', 40, 10),
 ]
 
@@ -27,6 +27,7 @@ const {
   deadEnemies,
   towerKiller,
   aliveEnemies,
+  towerMinRangeToWin,
   turns,
 }: IFightLogs = startGame(bots, tower);
 
@@ -41,5 +42,7 @@ const totalMoveCount = turns;
 tower.isDestroyed 
   ? displayInTerminal(`Tower LOSE in ${totalMoveCount} by ${towerKiller}`)   
   : displayInTerminal(`Tower WIN in ${totalMoveCount} turn${totalMoveCount === 1 ? '' : 's'}`);
+
+tower.isDestroyed && displayInTerminal(`Minimum firing distance to  win is: ${towerMinRangeToWin}`)
 
 displayInTerminal(`ALive enemies: [${aliveEnemies.map(aliveEnemy => aliveEnemy.name)}]`);

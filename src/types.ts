@@ -10,6 +10,7 @@ interface IFightLogs {
   deadEnemies: TDeadEnemies[];
   aliveEnemies: Unit[];
   towerKiller: string;
+  towerMinRangeToWin: number;
   turns: number;
 }
 
